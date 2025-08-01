@@ -15,7 +15,12 @@ class FedStatIndicator:
     @cached_property
     def _filters_raw(self):
         """Получает сырые данные фильтров"""
-        html = requests.get(f'https://www.fedstat.ru/indicator/{self.id}')
+        headers = {
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) FedStatParser/1.0",
+        "Accept-Language": "ru-RU,ru;q=0.9",
+        "Referer": "https://www.fedstat.ru/"
+        }
+        html = requests.get(f'https://www.fedstat.ru/indicator/{self.id}', headers = headers, verify = False)
         if html.status_code == 200:
             soup = BeautifulSoup(html.text, "lxml")
             script = soup.find_all("script")[11].text
