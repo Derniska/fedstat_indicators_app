@@ -20,7 +20,10 @@ class FedStatIndicator:
         "Accept-Language": "ru-RU,ru;q=0.9",
         "Referer": "https://www.fedstat.ru/"
         }
-        html = requests.get(f'https://www.fedstat.ru/indicator/{self.id}', headers = headers, verify = False)
+        html = requests.get(
+            f'https://www.fedstat.ru/indicator/{self.id}',
+            headers = headers, 
+            verify = False)
         if html.status_code == 200:
             soup = BeautifulSoup(html.text, "lxml")
             script = soup.find_all("script")[11].text
